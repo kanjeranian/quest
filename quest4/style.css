@@ -75,6 +75,7 @@ body{
     width: 100vw;
     height: 75vh;
     position: relative;
+    overflow-x: scroll;
 }
 
 .footBG{
@@ -82,4 +83,19 @@ body{
     width: 100vw;
     height: 5vh;
     position: relative;
+}
+
+/* optional for main */
+
+.divDog{
+    height: 60vh;
+    width: 99vw;
+    float: left;
+    text-align: center;
+    margin-top:7vh;
+}
+#dogIMG{
+    display: inlineblock;
+    height: 59vh;
+    text-align: center;
 }
