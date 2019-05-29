@@ -204,7 +204,6 @@ function deleteUser(id){
 
 }
 
-
 function hideForm(){
   document.getElementById("hiddenForm").style.visibility = "hidden";
 }
