@@ -25,7 +25,9 @@ function getAllUsers(){
           h1.innerHTML=id+") "+nickname;
 
           img = document.createElement('img');
+          img.id='a'+id;
           img.src=image;
+          img.onclick=function(){editUser2( (a.id).substring(1,) )}; /////////////
 
           h2 = document.createElement('h2');
           h2.innerHTML = name+" "+surname+"<br>("+gender+")";
@@ -124,6 +126,14 @@ function getAllUsers(){
       console.log(error);
     });
   }
+
+
+function editUser2(id){
+  document.getElementById("show").innerHTML = "ok";
+  location.replace("../html/edit_user.html");
+  document.getElementsByName("id")[0].setAttribute("value", id);
+}
+
 
 
 function editUser(){
