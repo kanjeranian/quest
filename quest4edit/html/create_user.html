@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>createUser</title>
+    <link href="https://fonts.googleapis.com/css?family=Kodchasan" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/all_users-style.css">
+    <link rel="stylesheet" type="text/css" href="../css/create_user-style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../script.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+<div class="bigBG">
+
+    <div class="headBG"> <p>OIL's API WEB BOOTCAMP</p><!--headBG--></div> 
+    
+    <div class="menuBG"> 
+        <div class="menu">
+            <a href="get_all_users.html">ALL USERS</a>            
+            <span class = "line">|</span>
+            <a href="create_user.html">CREATE USER</a>
+            <span class = "line">|</span>
+            <a href="edit_user.html">EDIT USER</a>
+            <span class = "line">|</span>
+            <a href="delete_user.html">DELETE USER</a>
+        <!--menu--></div><!--menuBG--></div>   
+    
+    <div class="bodyBG"> 
+        <div class="body" id="show">
+               
+                <img id="loadingSign" src="../img/loading_sign.gif"> </img>
+
+                <div class="formBox" id = "hiddenForm"> 
+                <div class="formBoxHead"> <p>CREATE USER</p><!--formBoxHead--></div>
+                <div class="formBoxBody"> 
+                    <form id="createUserForm"> 
+                        <input type=text name="name"     placeholder="NAME"> <br>
+                        <input type=text name="surname"  placeholder="SURNAME"> <br>
+                        <input type=text name="nickname" placeholder="NICKNAME"> <br>
+                        <input type=text name="image"    placeholder="IMAGE (LINK)"> <br>
+                        <div class="radio"> 
+                        <input type=radio name="gender" value="female"> female 
+                                    <input type=radio name="gender" value="male"> male <br>
+                        <!--radio--></div>
+                    </form>
+                <!--formBoxBody--></div>
+                    <button class="submit" onclick="createUser()"> submit </button>
+            <!--formBox--></div>
+            
+
+        <!--
+            <form id="createUserForm"> 
+                name        : <input type=text name="name"> <br>
+                surname     : <input type=text name="surname"> <br>
+                nickname    : <input type=text name="nickname"> <br>
+                image(link) : <input type=text name="image"> <br>
+                gender      : <input type=radio name="gender" value="female"> female
+                              <input type=radio name="gender" value="male"> male <br>
+                <input type="button" onclick="createUser()" value="submit" />
+            </form>
+        -->
+
+
+        <!--body--></div>
+        
+    
+    
+    <!--bodyBG--></div>
+    <div class="footBG"> <!--footBG--></div>
+<!--bigBG--></div>
+
+
+</body>
+</html>

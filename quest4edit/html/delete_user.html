@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>deleteUser</title>
+    <link href="https://fonts.googleapis.com/css?family=Kodchasan" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/all_users-style.css">
+    <link rel="stylesheet" type="text/css" href="../css/delete_user-style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../script.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="post-create-script.js"></script> -->
+</head>
+<body>
+
+<div class="bigBG">
+
+    <div class="headBG"> <p>OIL's API WEB BOOTCAMP</p><!--headBG--></div> 
+    
+    <div class="menuBG"> 
+        <div class="menu">
+            <a href="get_all_users.html">ALL USERS</a>            
+            <span class = "line">|</span>
+            <a href="create_user.html">CREATE USER</a>
+            <span class = "line">|</span>
+            <a href="edit_user.html">EDIT USER</a>
+            <span class = "line">|</span>
+            <a href="delete_user.html">DELETE USER</a>
+        <!--menu--></div><!--menuBG--></div>   
+    
+<div class="bodyBG"> 
+        <div class="body" id="show">
+
+            <img id="loadingSign" src="../img/loading_sign.gif"> </img>
+
+            <div class="formBox" id = "hiddenForm"> 
+                <div class="formBoxHead"> <p>DELETE USER</p><!--formBoxHead--></div>
+                <div class="formBoxBody"> 
+                    <form id="userForm"> 
+                        <input type=text name="id" placeholder="USER ID"> <br>
+                    </form>
+
+                <!--formBoxBody--></div>
+                    <button class="submit" onclick="deleteUser()"> submit </button>
+            <!--formBox--></div>
+
+            
+        <!--body--></div>
+        
+    
+    
+    <!--bodyBG--></div>
+    <div class="footBG"> <!--footBG--></div>
+<!--bigBG--></div>
+
+
+</body>
+</html>
