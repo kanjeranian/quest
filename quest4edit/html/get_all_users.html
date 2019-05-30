@@ -1,72 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>GET ALL USERS</title>
-    <link href="https://fonts.googleapis.com/css?family=Kodchasan" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../css/all_users-style.css">
-    <link rel="stylesheet" type="text/css" href="../css/edit_user-style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="../script.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-</head>
-<body>
-
-<div class="bigBG">
-
-    <div class="headBG"> <p>OIL's API WEB BOOTCAMP</p><!--headBG--></div> 
-    
-    <div class="menuBG"> 
-        <div class="menu">
-            <a href="get_all_users.html">ALL USERS</a>            
-            <span class = "line">|</span>
-            <a href="create_user.html">CREATE USER</a>
-            <span class = "line">|</span>
-            <a href="edit_user.html">EDIT USER</a>
-            <span class = "line">|</span>
-            <a href="delete_user.html">DELETE USER</a>
-        <!--menu--></div><!--menuBG--></div>  
-    
-    <div class="bodyBG"> 
-        <div class="body" id="show">
-
-            <!--
-            <div class="eachMember">
-                <div class="whiteBox">
-                    <h1> 0) nickname </h1>
-                    <img src="../img/greyBin.svg"> </img>
-                    <h2>name surname</br>(gender)</h2>
+    <head>
+        <meta charset="UTF-8">
+        <title>GET ALL USERS</title>
+        <link href="https://fonts.googleapis.com/css?family=Kodchasan" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <link rel="stylesheet" type="text/css" href="../css/all_users-style.css">
+        <link rel="stylesheet" type="text/css" href="../css/edit_user-style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="../script.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <div class="bigBG">
+            <div class="headBG"> 
+                <p>OIL's API WEB BOOTCAMP
+                </p>
+            </div> 
+            <div class="menuBG"> 
+                <div class="menu">
+                    <a href="get_all_users.html">ALL USERS</a>            
+                    <span class = "line">|</span>
+                    <a href="create_user.html">CREATE USER</a>
+                    <span class = "line">|</span>
+                    <a href="edit_user.html">EDIT USER</a>
+                    <span class = "line">|</span>
+                    <a href="delete_user.html">DELETE USER</a>
+                /div>
+            </div>  
+            <div class="bodyBG"> 
+                <div class="body" id="show">
+                    <img id="loadingSign" src="../img/loading_sign.gif"> </img>
                 </div>
-                </br>
-                <a href="#deleteUser"> 
-                    <img src="../img/greyBin.svg"> </img> 
-                    <h7>delete user</h7> 
-                </a> 
             </div>
-
-            -->
-           
-
-
-
-            <img id="loadingSign" src="../img/loading_sign.gif"> </img>
-        
-
-
-
-
-
-
-        
-
-            <!--body--></div><!--bodyBG--></div>
-            <script>getAllUsers();
-            </script>
-            
-    <div class="footBG"> <!--footBG--></div>
-<!--bigBG--></div>
-
-
-</body>
+            <script>getAllUsers();</script>
+            <div class="footBG"></div>
+        </div>
+    </body>
 </html>
