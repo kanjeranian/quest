@@ -126,15 +126,8 @@ function getAllUsers(){
     });
   }
 
-function editUser3(id){
-  //location.replace("../html/edit_user.html");
-  document.location="../html/edit_user.html";
-  document.location.getElementById('show').innerHTML="OIL";
-}
-
-
 function editUser2(id){
-  document.getElementById('EDIT_USER').style.color = "#D66A6A";
+  //document.getElementById('EDIT_USER').style.color = "#D66A6A";
   formBox = document.createElement('div');
   formBox.className='formBox';
   formBox.id='hiddenForm';
