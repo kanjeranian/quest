@@ -93,3 +93,7 @@
     border: 5px solid #d8d9dd;
     border-radius: 15px;
 }
+
+.bodyBG .body .eachMember .whiteBox img:hover{
+    border: 5px solid #424456;
+}
