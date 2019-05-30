@@ -1,5 +1,4 @@
 function getAllUsers(){
-  //var eachMember="";
     axios.get('https://sb-oil-web-bootcamp.herokuapp.com/users')
     .then(function (response) {
       console.log(response);
@@ -27,7 +26,7 @@ function getAllUsers(){
           img = document.createElement('img');
           img.id='a'+id;
           img.src=image;
-          img.onclick=function(){editUser2( (a.id).substring(1,) )}; /////////////
+          img.onclick=function(){editUser2( (this.id).substring(1,) )}; /////////////
 
           h2 = document.createElement('h2');
           h2.innerHTML = name+" "+surname+"<br>("+gender+")";
@@ -37,7 +36,7 @@ function getAllUsers(){
           a = document.createElement('a');
           a.id='a'+id;
           a.href='#deleteUser';
-          a.onclick=function(){deleteUser( (a.id).substring(1,) )}; /////////////
+          a.onclick=function(){deleteUser( (this.id).substring(1,) )}; /////////////
 
           bin = document.createElement('img');
           bin.src = '../img/greyBin.svg';
@@ -127,8 +126,15 @@ function getAllUsers(){
     });
   }
 
+function editUser3(id){
+  //location.replace("../html/edit_user.html");
+  document.location="../html/edit_user.html";
+  document.location.getElementById('show').innerHTML="OIL";
+}
+
 
 function editUser2(id){
+  document.getElementById('EDIT_USER').style.color = "#D66A6A";
   formBox = document.createElement('div');
   formBox.className='formBox';
   formBox.id='hiddenForm';
