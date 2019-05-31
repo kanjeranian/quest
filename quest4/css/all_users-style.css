@@ -11,27 +11,50 @@
 }
 
 .bodyBG .body .eachMember{
+    padding-top: 100px;
     width: 352px;
-    height: 583px;
+    height: 720px;
     background-color: #D66A6A;
+    /* background-color: wheat; */
     float: left;
     /* border: solid 3px black; */
     text-align: center;
-    margin-top:-20px;
+    /*margin-top:-20px;*/
+    margin-top:-90px;
 }
 
-.bodyBG .body .eachMember a img{
+/* .bodyBG .body .eachMember:hover{
+    background-color: #525363; 
+    margin-top: -60px;
+} */
+
+.bodyBG .body .eachMember a .editIcon{
     position: absolute;
-    margin-left: -11px;
-    margin-top:47px;
-    width: 26px;
+    margin-left: -56px;
+    margin-top:67px;
+    width: 100px;
 }
 
-.bodyBG .body .eachMember a:hover img{
+.bodyBG .body .eachMember a .editIcon:hover{
     position: absolute;
-    margin-left: -20px;
-    margin-top:47px;
-    width: 46px;
+    margin-left: -81px;
+    margin-top:60px;
+    width: 150px;
+}
+
+.bodyBG .body .eachMember a .deleteIcon{
+    position: absolute;
+    margin-left: 133px;
+    margin-top:-390px;
+    width: 33px;
+    /* display: none; */
+}
+
+.bodyBG .body .eachMember a .deleteIcon:hover{
+    position: absolute;
+    margin-left: 125px;
+    margin-top:-398px;
+    width: 49px;
 }
 
 .bodyBG .body .eachMember a h7{
@@ -92,8 +115,4 @@
     top:-3px;
     border: 5px solid #d8d9dd;
     border-radius: 15px;
-}
-
-.bodyBG .body .eachMember .whiteBox img:hover{
-    border: 5px solid #424456;
 }
