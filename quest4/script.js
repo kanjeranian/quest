@@ -275,15 +275,14 @@ function deleteUser(id){
   axios.delete('https://sb-oil-web-bootcamp.herokuapp.com/users/'+id)
   .then(function (response) {
     console.log(response);
-      var obj = response.data;
-      var status = obj.status;
-      if(status==0){
-        errMessage=obj.error;
-        document.getElementById("userForm").reset();
-        alert(errMessage);
-      }else{
-        getAllUsers();
-      }
+    var obj = response.data;
+    var status = obj.status;
+    if(status==0){
+      errMessage=obj.error;
+      alert(errMessage);
+    }else{
+      getAllUsers();
+    }
   })
   .catch(function (error) {
     console.log(error);
