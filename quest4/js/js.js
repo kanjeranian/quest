@@ -5,7 +5,7 @@ function getAllUsers(){
       var allData = response.data;
       n = allData.data.length;
       
-      document.getElementById("show").innerHTML = "";/////////////////
+      $("#show").html("");
 
       for(var i=0; i<n; i++){
           var member = allData.data[i];
@@ -16,61 +16,55 @@ function getAllUsers(){
           var gender = member.gender;
           var image = member.image;
 
-          var eachMember = document.createElement('div');///////////////
-          eachMember.className='eachMember';
-          eachMember.id='member'+id;
-
-          whiteBox = document.createElement('div');///////////////
-          whiteBox.className='whiteBox';
-
-          h1 = document.createElement('h1');///////////////
-          h1.innerHTML=id+") "+nickname;
-
-          img = document.createElement('img');///////////////
-          img.id='a'+id;
-          img.src=image;
-
-          h2 = document.createElement('h2');///////////////
-          h2.innerHTML = name+" "+surname+"<br>("+gender+")";
-
-          br = document.createElement('br');///////////////
-
-          a = document.createElement('a');///////////////
-          a.id='a'+id;
-          a.href='#deleteUser';
-          a.onclick=function(){editUser2( (this.id).substring(1,) )}; 
-
-          editIcon = document.createElement('img');///////////////
-          editIcon.src = '../img/editIcon.svg';
-          editIcon.className='editIcon'; 
-
-          a2 = document.createElement('a');///////////////
-          a2.id='a2'+id;
-          a2.href='#deleteUser';
-          a2.onclick=function(){deleteUser( (this.id).substring(2,) )}; 
-
-          deleteIcon = document.createElement('img');///////////////
-          deleteIcon.src = '../img/deleteIcon.svg';
-          deleteIcon.className='deleteIcon'
-
-          h7 = document.createElement('h7');///////////////
-          h7.innerHTML = 'delete user';
-
+          var eachMember = $("<div/>", {
+            id : 'member'+id,
+            class : "eachMember"
+          });
+          eachMember.appendTo($("#show"));
           
-          whiteBox.appendChild(h1);
-          whiteBox.appendChild(img);
-          whiteBox.appendChild(h2);
-          
-          a.appendChild(editIcon);
-          a2.appendChild(deleteIcon); ///////
+          var whiteBox = $("<div/>", {
+            class : "whiteBox"
+          });
+          whiteBox.appendTo(eachMember);
 
-          eachMember.appendChild(whiteBox);
-          eachMember.appendChild(br);
-          eachMember.appendChild(a);
-          eachMember.appendChild(a2);
+          var h1 = $("<h1></h1>").text(id+") "+nickname);
+          h1.appendTo(whiteBox);
+
+          var img = $('<img/>', { 
+            src: image,
+          });
+          img.appendTo(whiteBox);
+
+          var h2 = $("<h2></h2>").html(name+" "+surname+"<br>("+gender+")");
+          h2.appendTo(whiteBox);
           
-          document.getElementById("show").appendChild(eachMember);///////////////
+          var a = $("<a/>", {
+            id   : "a"+id,
+            class : "a",
+            href : "#deleteUser"
+          });
+          a.appendTo(eachMember);
+          $('.a').click(function(){ editUser2( (this.id).substring(1,) ); return false; });
           
+          var editIcon = $('<img/>', { 
+            src: '../img/editIcon.svg',
+            class: 'editIcon'
+          });
+          editIcon.appendTo(a);
+          
+          var a2 = $("<a/>", {
+            id   : "a2"+id,
+            class : "a2",
+            href : "#deleteUser"
+          });
+          a2.appendTo(eachMember);
+          $('.a2').click(function(){ deleteUser( (this.id).substring(2,) ); return false; });
+
+          var deleteIcon = $('<img />', { 
+            src: '../img/deleteIcon.svg',
+            class: 'deleteIcon'
+          });
+          deleteIcon.appendTo(a2);
       } 
       if(n==0){
         eachMember+='<div class=divDog> <img id="dogIMG" src="img/dog.svg"> </img> </div>';
@@ -106,7 +100,7 @@ function createUser(){
     var status = obj.status;
     if(status==0){
       errMessage=obj.error;
-      document.getElementById("createUserForm").reset();
+      $("createUserForm").trigger("reset"); 
       alert(errMessage);
       unhideForm();
     }else{
@@ -121,6 +115,12 @@ function editUser2(id){
   formBox = document.createElement('div');
   formBox.className='formBox';
   formBox.id='hiddenForm';
+
+  // var formBox = $("<div/>", {
+  //   id : "formBox",
+  //   class : "formBox"
+  // });
+  // formBox.appendTo($("#show"));
 
   var br = document.createElement('br');
   

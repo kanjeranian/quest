@@ -1,3 +1,5 @@
+
+
 function getAllUsers(){
     axios.get('https://sb-oil-web-bootcamp.herokuapp.com/users')
     .then(function (response) {
@@ -112,110 +114,10 @@ function createUser(){
   });
 }
 function editUser2(id){
-  formBox = document.createElement('div');
-  formBox.className='formBox';
-  formBox.id='hiddenForm';
-
-  // var formBox = $("<div/>", {
-  //   id : "formBox",
-  //   class : "formBox"
-  // });
-  // formBox.appendTo($("#show"));
-
-  var br = document.createElement('br');
-  
-  formBoxHead = document.createElement('div');
-  formBoxHead.className='formBoxHead';
-  e = document.createElement('p');
-  e.innerHTML='EDIT USER';
-  formBoxHead.appendChild(e);
-  
-  var formBoxBody = document.createElement('div');
-  formBoxBody.className='formBoxBody';
-  
-  var form = document.createElement('form');
-  form.id='editUserForm';
-  
-  var iid = document.createElement('input');
-  iid.setAttribute("type", "text");
-  iid.setAttribute("name", "id");
-  iid.setAttribute("placeholder", "USER ID");
-  iid.setAttribute("value", id);
-  form.appendChild(iid);
-  form.appendChild(br);
-  
-  var name = document.createElement('input');
-  name.setAttribute("type", "text");
-  name.setAttribute("name", "name");
-  name.setAttribute("placeholder", "NAME");
-  form.appendChild(name);
-  var br2 = document.createElement('br');
-  form.appendChild(br2);
-  
-  var surname = document.createElement('input');
-  surname.setAttribute("type", "text");
-  surname.setAttribute("name", "surname");
-  surname.setAttribute("placeholder", "SURNAME");
-  form.appendChild(surname);
-  var br = document.createElement('br');
-  form.appendChild(br);
-  
-  var nickname = document.createElement('input');
-  nickname.setAttribute("type", "text");
-  nickname.setAttribute("name", "nickname");
-  nickname.setAttribute("placeholder", "NICKNAME");
-  form.appendChild(nickname);
-  var br = document.createElement('br');
-  form.appendChild(br);
-  
-  var image = document.createElement('input');
-  image.setAttribute("type", "text");
-  image.setAttribute("name", "image");
-  image.setAttribute("placeholder", "IMAGE (LINK)");
-  form.appendChild(image);
-  var br = document.createElement('br');
-  form.appendChild(br);
-  
-  var radio = document.createElement('div');
-  radio.className='radio';
-  
-  var ra1 = document.createElement('input');
-  ra1.setAttribute("type", "radio");
-  ra1.setAttribute("name", "gender");
-  ra1.setAttribute("value", "female");
-  radio.appendChild(ra1);
-  
-  var ra11 = document.createElement('none');
-  ra11.innerHTML=" female ";
-  radio.appendChild(ra11);
-  
-  
-  var ra2 = document.createElement('input');
-  ra2.setAttribute("type", "radio");
-  ra2.setAttribute("name", "gender");
-  ra2.setAttribute("value", "male");
-  radio.appendChild(ra2);
-
-  var ra22 = document.createElement('none');
-  ra22.innerHTML=" male ";
-  radio.appendChild(ra22);
-
-  form.appendChild(radio);
-
-  formBoxBody.appendChild(form);
-  
-  var button = document.createElement('button');
-  button.className="submit";
-  button.onclick=function(){editUser();}
-  button.innerHTML="submit";
-
-
-  formBox.appendChild(formBoxHead);
-  formBox.appendChild(formBoxBody);
-  formBox.appendChild(button);
-  
-  document.getElementById("show").innerHTML = "";
-  document.getElementById("show").appendChild(formBox);
+  // location.replace("../html/edit_user.html");
+  location = "../html/edit_user.html";
+  // $(".formBoxBody").html("");
+  // $("#show").html("");
 }
 function editUser(){
   hideForm();
