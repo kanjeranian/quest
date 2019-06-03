@@ -15,45 +15,51 @@
     width: 352px;
     height: 720px;
     background-color: #D66A6A;
-    /* background-color: wheat; */
     float: left;
-    /* border: solid 3px black; */
     text-align: center;
-    /*margin-top:-20px;*/
     margin-top:-90px;
 }
 
-/* .bodyBG .body .eachMember:hover{
-    background-color: #525363; 
-    margin-top: -60px;
-} */
 
 .bodyBG .body .eachMember a .editIcon{
     position: absolute;
-    margin-left: -56px;
-    margin-top:67px;
+    /* margin-left: -56px; */
+    /* margin-left: 115px; */
+    margin-left: -220px;
+    /* margin-top:67px; */
+    margin-top:480px;
     width: 100px;
 }
 
 .bodyBG .body .eachMember a .editIcon:hover{
     position: absolute;
-    margin-left: -81px;
-    margin-top:60px;
+    /* margin-left: -81px; */
+    /* margin-left: 90px; */
+    margin-left: -245px;
+    /* margin-top:60px; */
+    margin-top:473px;
+
     width: 150px;
 }
 
 .bodyBG .body .eachMember a .deleteIcon{
     position: absolute;
-    margin-left: 133px;
-    margin-top:-390px;
+    /* margin-left: 133px; */
+    /* margin-left: 320px; */
+    margin-left: -30px;
+    /* margin-top:-390px; */
+    margin-top:33px;
+
     width: 33px;
-    /* display: none; */
 }
 
 .bodyBG .body .eachMember a .deleteIcon:hover{
     position: absolute;
-    margin-left: 125px;
-    margin-top:-398px;
+    /* margin-left: 125px; */
+    /* margin-left: 318px; */
+    margin-left: -32px;
+    /* margin-top:-398px; */
+    margin-top:25px;
     width: 49px;
 }
 
