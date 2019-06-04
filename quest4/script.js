@@ -1,9 +1,13 @@
+var urlString = $(location).attr("href");
+var url = new URL(urlString);
+try {
+    var id = url.searchParams.get("id");
+    $("#inputID").val(id.toString());
+}
+catch(err) {}
 $(".submitEditUser").click(function(){
   editUser();
 });
-
-
-
 function getAllUsers(){
   axios.get('https://sb-oil-web-bootcamp.herokuapp.com/users')
   .then(function (response) {
@@ -49,7 +53,7 @@ function getAllUsers(){
         href : "#deleteUser"
       });
       a.appendTo(eachMember);
-      $('.a').click(function(){ editUser2( (this.id).substring(1,) ); return false; });
+      $('.a').click(function(){ createEditUserForm( (this.id).substring(1,) ); return false; });
       
       var editIcon = $('<img/>', { 
         src: '../img/editIcon.svg',
@@ -115,7 +119,6 @@ function createUser(){
     console.log(error);
   });
 }
-
 function deleteUser(){
   hideForm();
   var id        = $("[name='id']").val();
@@ -157,93 +160,10 @@ function deleteUser(id){
   })
 
 }
-
-function editUser2(id){
+function createEditUserForm(id){ 
   id=id.toString();
-  $("#show").html('');
-  $("#show").append(
-
-    $("<img/>", {
-        id: 'loadingSign',
-        src: '../img/loading_sign.gif'
-    }), 
-      
-    $("<div/>", {
-        class :'formBox',
-        id: 'hiddenForm'
-    }).append(
-          $("<div/>", {
-            class:'formBoxHead',
-            id:'formBoxHead'
-            }).append($("<p/>",{text:'EDIT USER'})),
-          $("<div/>", {
-            class:'formBoxBody',
-            }).append(
-              $("<form/>", {
-                id: 'editUserForm'
-                }).append(
-                  $("<input/>", {
-                    type: 'text',
-                    name: 'id',
-                    placeholder: 'USER ID',
-                    value: id,
-                    id: 'inputID',
-                  }),
-                  $("<input/>", {
-                    type: 'text',
-                    name: 'name',
-                    placeholder: 'NAME'
-                  }),
-                  $("<input/>", {
-                    type: 'text',
-                    name: 'surname',
-                    placeholder: 'SURNAME'
-                  }),
-                  $("<input/>", {
-                    type: 'text',
-                    name: 'nickname',
-                    placeholder: 'NICKNAME'
-                  }),
-                  $("<input/>", {
-                    type: 'text',
-                    name: 'image',
-                    placeholder: 'IMAGE (LINK)'
-                  }),
-                  $("<div/>", {
-                    class:'radio',
-                    }).append(
-                      $("<input/>", {
-                        type: 'radio',
-                        name: 'gender',
-                        value: 'female'
-                      }),
-                      $("<none/>", {
-                        text:' female '
-                      }),
-                      $("<input/>", {
-                        type: 'radio',
-                        name: 'gender',
-                        value: 'male'
-                      }),
-                      $("<none/>", {
-                        text:' male '
-                      })
-                    )
-                )
-          )
-
-      ),
-      $("<button/>", {
-        class:"submit submitEditUser"
-      })
-  );
-  $(".submitEditUser").text('submit');
-  $(".submitEditUser").click(function(){
-    onclick=editUser();
-  });
+  location = "../html/edit_user.html?id="+id;
 }
-
-
 function editUser(){
   hideForm();
   var id        = $("[name='id']").val();
@@ -276,17 +196,13 @@ function editUser(){
   .catch(function (error) {
     console.log(error);
   });
-
 }
-
-
 function hideForm(){
   $("#hiddenForm").hide();
 }
 function unhideForm(){
   $("#hiddenForm").show();
 }
-
 function load(){
   $("#show").html('<img id="loadingSign" src="../img/loading_sign.gif"> </img>');
 }
