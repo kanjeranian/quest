@@ -36,7 +36,7 @@
     margin: 0;
     position: absolute;
     top: 160px;
-    left: 50%;
+    left: 58%;
     margin-right: -50%;
     transform: translate(-50%, -50%)
 }
@@ -60,7 +60,8 @@ input[placeholder]{
     color:white;
     padding: 10px;
     font-size: 20px;
-    text-align: center;
+    /* text-align: center; */
+    padding-left: 76px;
 }
 
 .submit{
