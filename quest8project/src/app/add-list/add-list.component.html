@@ -1,0 +1,15 @@
+<div class="container" *ngIf="!login">
+      <form>
+      <div class="form-group">
+        <label for="todo">new to-do list</label>
+        <input type="text" class="form-control" id="todo" required [(ngModel)]="todo" name="todo">
+      </div>
+
+
+      <button type="submit" class="btn btn-success" (click)='addList()'>add</button>
+
+    </form>
+
+    {{todo}}
+    {{b}}
+</div>
