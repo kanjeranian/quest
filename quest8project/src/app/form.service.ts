@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,24 +14,33 @@ export class FormService {
   private response;
   constructor(private http: HttpClient) {}
 
-  async login(userId: string, pass: string) {
+  login(userId: string, pass: string) {
     this.http
       .post(this.url, { username: userId, password: pass })
       .subscribe(data => {
         this.response = data;
+        console.log(this.response.status);
+        if (this.response.status) {
+          this.setStatus(true);
+          this.setKey(this.response.data);
+        } else {
+          this.setStatus(false);
+          this.setKey('');
+        }
       });
-    if (this.response.status) {
-      this.setStatus(true);
-      this.setKey(this.response.data);
-    } else {
-      this.setStatus(false);
-      this.setKey('');
-    }
-    return this.response;
+    // console.log(this.response);
+    // if (this.response.status) {
+    //   this.setStatus(true);
+    //   this.setKey(this.response.data);
+    // } else {
+    //   this.setStatus(false);
+    //   this.setKey('');
+    // }
+    // return this.response;
   }
 
   getLoginStatus() {
-    return this.loginStatus;
+    return of(this.loginStatus);
   }
 
   getKey() {

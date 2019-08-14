@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormService } from '../form.service';
-import { RequestService } from '../request.service';
+import { ItemManager } from '../item-manager.service';
 
 @Component({
   selector: 'app-add-list',
@@ -15,7 +15,7 @@ export class AddListComponent implements OnInit {
   response;
   constructor(
     private formService: FormService,
-    private requestService: RequestService
+    private itemManager: ItemManager
   ) {}
 
   ngOnInit() {
@@ -23,7 +23,7 @@ export class AddListComponent implements OnInit {
   }
 
   async addList() {
-    this.response = await this.requestService.addList(this.key, this.todo);
+    this.response = await this.itemManager.addList(this.key, this.todo);
     this.b = JSON.stringify(this.response);
   }
 }

@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Item } from './item';
+import { Observable } from 'rxjs';
+import { catchError, tap, map } from 'rxjs/operators';
+import { IItem } from './IItem';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RequestService {
+export class ItemManager {
   private url = 'https://api.todo.mrsunboy.com/todo';
   private response;
+  private items: Item[];
+
   constructor(private http: HttpClient) {}
 
   async getList() {
@@ -14,6 +20,19 @@ export class RequestService {
       this.response = data;
     });
     return this.response;
+  }
+
+  getItems(): Observable<any> {
+    return this.http.get(this.url);
+  }
+
+  handleError<T>(
+    arg0: string
+  ): (
+    err: any,
+    caught: Observable<Item[]>
+  ) => import('rxjs').ObservableInput<any> {
+    throw new Error('Method not implemented.');
   }
 
   async addList(key: string, todo: string) {

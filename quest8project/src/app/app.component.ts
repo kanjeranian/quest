@@ -7,7 +7,7 @@ import { FormService } from './form.service';
 })
 export class AppComponent implements AfterContentChecked {
   test = true;
-  title = 'QUEST 8';
+  title = 'QUEST';
   loginStatus = false;
   key: string;
 
