@@ -3,10 +3,9 @@
   <div class="navbar-nav">
     <a class="nav-item nav-link" routerLink="/login">Login</a>
     <a class="nav-item nav-link" routerLink="/items">List</a>
-    <a *ngIf="loginStatus" class="nav-item nav-link" routerLink="/addList">Add</a>
+    <a *ngIf="isLoggedIn" class="nav-item nav-link" routerLink="/addList">Add</a>
   </div>
 </nav>
-
 
 <div class="jumbotron">
   <router-outlet></router-outlet>

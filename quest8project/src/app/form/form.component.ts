@@ -1,41 +1,32 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
-import { FormService } from '../form.service';
+import { Component } from '@angular/core';
+import { AuthService } from '../auth.service';
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit, DoCheck {
-  userId: string;
+export class FormComponent {
+  username: string;
   password: string;
-  loginStatus: boolean;
-  count = 0;
 
-  constructor(private formService: FormService) {}
+  constructor(private auth: AuthService) { }
 
-  ngOnInit() {
-    // this.updateStatus();
-    // console.log('change');
+  /**
+   * @method login() Log user in
+   *
+   * Call HTTP request to login API using `username` and `password` property.
+   * Set key in `AuthService` if login success, otherwise alert error message
+   */
+  login(): void {
+    // TODO fill code
   }
 
-  ngDoCheck() {
-    this.updateStatus();
-    // console.log('Dochange');
-    // console.log(this.loginStatus);
-    // console.log('count : ' + this.count++);
+  logout(): void {
+    this.auth.logout();
   }
 
-  login() {
-    this.formService.login(this.userId, this.password);
-  }
-
-  logout() {
-    this.formService.login('', '');
-  }
-
-  updateStatus() {
-    this.formService
-      .getLoginStatus()
-      .subscribe(status => (this.loginStatus = status));
+  get isLoggedIn(): boolean {
+    return this.auth.isLoggedIn;
   }
 }

@@ -1,7 +1,5 @@
 <ul>
-    <ul *ngFor="let item of iitemss">
-        <button (click)="delete(item.id)">x</button> {{ item.id }} ) {{item.text}}
-    </ul>
+  <ul *ngFor="let todo of todos">
+    <button (click)="delete(todo.id)">x</button> {{ todo.id }} ) {{todo.text}}
+  </ul>
 </ul>
-
-{{del}} {{b}}

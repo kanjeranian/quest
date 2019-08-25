@@ -1,4 +1,4 @@
-export interface IItem {
+export interface Todo {
   id: number;
   text: string;
 }

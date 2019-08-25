@@ -1,23 +1,15 @@
-import { Component, AfterContentChecked } from '@angular/core';
-import { FormService } from './form.service';
+import { Component } from '@angular/core';
+import { AuthService } from './auth.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterContentChecked {
-  test = true;
-  title = 'QUEST';
-  loginStatus = false;
-  key: string;
+export class AppComponent {
+  constructor(private auth: AuthService) { }
 
-  constructor(private formService: FormService) {}
-
-  ngAfterContentChecked() {
-    this.loginStatus = this.formService.loginStatus;
-  }
-
-  addValue(loginStatus) {
-    this.formService.setStatus(loginStatus);
+  get isLoggedIn(): boolean {
+    return this.auth.isLoggedIn;
   }
 }

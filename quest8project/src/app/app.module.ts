@@ -7,10 +7,23 @@ import { AppComponent } from './app.component';
 import { FormComponent } from './form/form.component';
 import { AddListComponent } from './add-list/add-list.component';
 import { ItemComponent } from './items/items.component';
+
 @NgModule({
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
-  declarations: [AppComponent, FormComponent, AddListComponent, ItemComponent],
-  providers: [],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
+  ],
+  declarations: [
+    AppComponent,
+    FormComponent,
+    AddListComponent,
+    ItemComponent
+  ],
+  providers: [
+    // TODO add AuthService and TodoManagerService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemManager } from '../item-manager.service';
-import { Item } from '../item';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { TodoManagerService } from '../todo-manager.service';
+import { Todo } from '../todo';
 
 @Component({
   selector: 'app-items',
@@ -9,39 +8,30 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   styleUrls: ['./items.component.css']
 })
 export class ItemComponent implements OnInit {
-  items: Item[];
-  response;
-  b;
-  iitemss;
-  userId: string;
-  password: string;
-  loginStatus = false;
-  key: string;
-  del = 3;
-  constructor(private itemManager: ItemManager) {}
+  todos: Todo[];
+
+  constructor(private todoManager: TodoManagerService) { }
 
   ngOnInit() {
     this.getList();
   }
 
-  async getList() {
-    this.response = await this.itemManager.getItems();
-    this.response.subscribe(e => (this.iitemss = e.data));
+  /**
+   * @method getList() Update `todos` property from API
+   *
+   * Call HTTP request to get all todo API and update `todos` property using the retrieved data
+   */
+  getList(): void {
+    // TODO fill code
   }
 
-  getItems(): void {
-    this.itemManager
-      .getItems()
-      .subscribe(response => (this.response = response));
-    // ที่ควรจะเป็นคือ .subscribe(items => (this.items = items));
-    this.b = JSON.stringify(this.response);
-    this.iitemss = this.response.iitemss;
-    this.b = JSON.stringify(this.iitemss);
-  }
-
-  async delete(id: number) {
-    this.del = id;
-    this.response = await this.itemManager.deleteList(this.key, id);
-    this.b = JSON.stringify(this.response);
+  /**
+   * @method delete(id) Delete todo item with the specified ID
+   * @param id ID of todo item
+   *
+   * Call HTTP request to delete todo API and reload todo list
+   */
+  delete(id: number): void {
+    // TODO fill code
   }
 }
