@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoManagerService } from '../todo-manager.service';
 import { Todo } from '../todo';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-items',
@@ -10,10 +11,17 @@ import { Todo } from '../todo';
 export class ItemComponent implements OnInit {
   todos: Todo[];
 
-  constructor(private todoManager: TodoManagerService) {}
+  constructor(
+    private todoManager: TodoManagerService,
+    private auth: AuthService
+  ) {}
 
   ngOnInit() {
     this.getList();
+  }
+
+  get isLoggedIn(): boolean {
+    return this.auth.isLoggedIn;
   }
 
   /**

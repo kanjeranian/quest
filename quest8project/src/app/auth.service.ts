@@ -9,10 +9,13 @@ import { Response } from './response';
 export class AuthService {
   key = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   login(username: string, password: string): Observable<Response<string>> {
-    return this.http.post<Response<string>>('https://api.todo.mrsunboy.com/login', { username, password });
+    return this.http.post<Response<string>>(
+      'https://api.todo.mrsunboy.com/login',
+      { username, password }
+    );
   }
 
   logout(): void {
