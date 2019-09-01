@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 export class TodoManagerService {
   private url = 'https://api.todo.mrsunboy.com/todo';
 
-  constructor(private http: HttpClient, private form: AuthService) { }
+  constructor(private http: HttpClient, private form: AuthService) {}
 
   getItems(): Observable<Response<Todo[]>> {
     return this.http.get<Response<Todo[]>>(this.url);
@@ -25,7 +25,14 @@ export class TodoManagerService {
    * @returns `Observable<Response<Todo>>`
    */
   addTodo(todo: string): Observable<Response<Todo>> {
-    // TODO fill code
+    // ok
+    return this.http.post<Response<Todo>>(
+      this.url,
+      { text: todo },
+      {
+        headers: { Authorization: 'Bearer ' + this.form.key }
+      }
+    );
   }
 
   deleteList(id: number): Observable<Response> {

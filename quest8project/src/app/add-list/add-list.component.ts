@@ -11,7 +11,11 @@ import { AuthService } from '../auth.service';
 export class AddListComponent {
   todo: string;
 
-  constructor(private auth: AuthService, private itemManager: TodoManagerService, private router: Router) { }
+  constructor(
+    private auth: AuthService,
+    private itemManager: TodoManagerService,
+    private router: Router
+  ) {}
 
   /**
    * @method addTodo() Add new todo item to the list
@@ -20,6 +24,11 @@ export class AddListComponent {
    */
   addTodo(): void {
     // TODO fill code
+    this.itemManager.addTodo(this.todo).subscribe(response => {
+      if (response.status === 1) {
+        this.router.navigate(['/items']);
+      }
+    });
   }
 
   get isLoggedIn(): boolean {

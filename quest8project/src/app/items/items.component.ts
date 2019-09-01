@@ -10,7 +10,7 @@ import { Todo } from '../todo';
 export class ItemComponent implements OnInit {
   todos: Todo[];
 
-  constructor(private todoManager: TodoManagerService) { }
+  constructor(private todoManager: TodoManagerService) {}
 
   ngOnInit() {
     this.getList();
@@ -23,6 +23,9 @@ export class ItemComponent implements OnInit {
    */
   getList(): void {
     // TODO fill code
+    this.todoManager
+      .getItems()
+      .subscribe(response => (this.todos = response.data));
   }
 
   /**
@@ -33,5 +36,8 @@ export class ItemComponent implements OnInit {
    */
   delete(id: number): void {
     // TODO fill code
+    this.todoManager.deleteList(id).subscribe(e => {
+      this.getList();
+    });
   }
 }

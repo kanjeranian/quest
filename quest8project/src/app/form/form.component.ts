@@ -10,7 +10,7 @@ export class FormComponent {
   username: string;
   password: string;
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService) {}
 
   /**
    * @method login() Log user in
@@ -20,6 +20,13 @@ export class FormComponent {
    */
   login(): void {
     // TODO fill code
+    this.auth.login(this.username, this.password).subscribe(response => {
+      if (response.status === 1) {
+        this.auth.setKey(response.data);
+      } else {
+        alert(response.error);
+      }
+    });
   }
 
   logout(): void {
