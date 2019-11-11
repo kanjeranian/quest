@@ -1,0 +1,125 @@
+.bodyBG{
+    background-color: #D66A6A;
+    width: 100vw;
+    position: relative;
+    overflow-x: scroll;
+}
+
+.bodyBG .body{
+    width: 10000000vh;
+    margin: 10px;
+}
+
+.bodyBG .body .eachMember{
+    padding-top: 100px;
+    width: 352px;
+    height: 720px;
+    background-color: #D66A6A;
+    float: left;
+    text-align: center;
+    margin-top:-90px;
+}
+
+
+.bodyBG .body .eachMember a .editIcon{
+    position: absolute;
+    /* margin-left: -56px; */
+    /* margin-left: 115px; */
+    margin-left: -220px;
+    /* margin-top:67px; */
+    margin-top:480px;
+    width: 100px;
+}
+
+.bodyBG .body .eachMember a .editIcon:hover{
+    position: absolute;
+    /* margin-left: -81px; */
+    /* margin-left: 90px; */
+    margin-left: -245px;
+    /* margin-top:60px; */
+    margin-top:473px;
+
+    width: 150px;
+}
+
+.bodyBG .body .eachMember a .deleteIcon{
+    position: absolute;
+    /* margin-left: 133px; */
+    /* margin-left: 320px; */
+    margin-left: -30px;
+    /* margin-top:-390px; */
+    margin-top:33px;
+
+    width: 33px;
+}
+
+.bodyBG .body .eachMember a .deleteIcon:hover{
+    position: absolute;
+    /* margin-left: 125px; */
+    /* margin-left: 318px; */
+    margin-left: -32px;
+    /* margin-top:-398px; */
+    margin-top:25px;
+    width: 49px;
+}
+
+
+.bodyBG .body .eachMember a h7{
+    float: left;
+    display: block;
+    color: #2A2C3F;
+    text-align: center;
+    padding: 14px 13px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 40px;
+    transform: translateX(65%);
+    visibility: hidden;
+}
+
+.bodyBG .body .eachMember a:hover h7{
+    float: left;
+    display: block;
+    color: #D8D0D0;
+    text-align: center;
+    padding: 14px 13px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 90px;
+    margin-left: 50px;
+    transform: translateX(68%);
+    visibility: visible;
+}
+
+
+
+.bodyBG .body .eachMember .whiteBox{
+    width: 330px;
+    height: 423px;
+    background-color: white;
+    display: inline-block;
+    position: relative;
+    top: 40px;
+    border-radius: 50px;
+    overflow: auto;
+}
+
+.bodyBG .body .eachMember .whiteBox h1{
+    color: #424456
+}
+
+.bodyBG .body .eachMember .whiteBox h2{
+    color: #424456
+}
+
+.bodyBG .body .eachMember .whiteBox img{
+    position:relative;
+    object-fit: cover;
+    width: 215px;
+    height: 215px;
+    top:-3px;
+    border: 5px solid #d8d9dd;
+    border-radius: 15px;
+}

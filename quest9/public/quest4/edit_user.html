@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>editUSER</title>
+        <link href="https://fonts.googleapis.com/css?family=Kodchasan" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <link rel="stylesheet" type="text/css" href="../css/all_users-style.css">
+        <link rel="stylesheet" type="text/css" href="../css/edit_user-style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>    
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <div class="bigBG">
+            <div class="headBG"> 
+                <p>OIL's API WEB BOOTCAMP</p>
+            </div> 
+            <div class="menuBG"> 
+                <div class="menu">
+                    <a href="get_all_users.html">ALL USERS</a>            
+                    <span class = "line">|</span>
+                    <a href="create_user.html">CREATE USER</a>
+                    <span class = "line">|</span>
+                    <a href="edit_user.html">EDIT USER</a>
+                </div>
+            </div>   
+            <div class="bodyBG"> 
+                <div class="body" id="show">
+                    <img id="loadingSign" src="../img/loading_sign.gif"> 
+                    <div class="formBox" id = "hiddenForm"> 
+                        <div class="formBoxHead"> 
+                            <p>EDIT USER</p>
+                        </div>
+                        <div class="formBoxBody"> 
+                            <form id="editUserForm"> 
+                                <input type=text name="id"       placeholder="USER ID" value="" id="inputID" > 
+                                <input type=text name="name"     placeholder="NAME"> 
+                                <input type=text name="surname"  placeholder="SURNAME"> 
+                                <input type=text name="nickname" placeholder="NICKNAME"> 
+                                <input type=text name="image"    placeholder="IMAGE (LINK)"> 
+                                <div class="radio"> 
+                                    <input type=radio name="gender" value="female"> female 
+                                    <input type=radio name="gender" value="male"> male 
+                                    <br>
+                                </div>
+                            </form>
+                        </div>
+                        <button class="submit submitEditUser"> submit </button>
+                    </div>
+                </div>     
+            </div>
+            <div class="footBG"> </div>
+        </div>
+    </body>
+    <script src="../script.js"></script>
+</html>
