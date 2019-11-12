@@ -12,7 +12,7 @@ function add(name, surname, nickname, gender, image) {
   };
   data.push(a);
   currentID++;
-  return;
+  return find(a.id);
 }
 
 function edit(index, name, surname, nickname, gender, image) {
@@ -96,12 +96,12 @@ router.post("/api/users", function(ctx) {
     };
     return;
   }
-  add(name, surname, nickname, gender, img);
+  const index = add(name, surname, nickname, gender, img);
   ctx.body = {
     status: status,
     data: data[index]
   };
-  console.log(ctx.response);
+  console.log(data[index]);
 });
 
 //POST /api/users/:id : edit user by id
