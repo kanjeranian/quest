@@ -53,7 +53,16 @@ const router = require("koa-router")();
 
 var app = new koa();
 
-data = [];
+const Router = require("koa-router");
+const serve = require("koa-static");
+const path = require("path");
+
+const route = new Router();
+
+app.use(serve(path.join(__dirname, "public")));
+app.use(route.routes());
+app.use(route.allowedMethods());
+//------------------------------------------------
 
 // GET /echo : read query parameter (msg)
 router.get("/echo", function(ctx) {
@@ -64,6 +73,7 @@ router.get("/echo", function(ctx) {
 // GET /api/users : return array value
 router.get("/api/users", function(ctx) {
   ctx.body = { status: 1, data: data };
+  console.log(ctx.response);
 });
 
 // POST /api/users : add new user
@@ -136,6 +146,7 @@ router.post("/api/users/:id", function(ctx) {
       status: status,
       data: data[index]
     };
+    console.log(ctx.response);
   }
 });
 
@@ -159,6 +170,7 @@ router.delete("/api/users/:id", function(ctx) {
   ctx.body = {
     status: status
   };
+  console.log(ctx);
 });
 
 router.get("/not_found", printErrorMessage);
@@ -178,3 +190,16 @@ app.use(handle404Errors);
 
 app.listen(3000);
 console.log("Listening on port 3000");
+
+//////////////////////////////////////////////////
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
+//////////////////////////////////////////////////

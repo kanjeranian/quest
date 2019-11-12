@@ -4,13 +4,16 @@ try {
   var id = url.searchParams.get("id");
   $("#inputID").val(id.toString());
 } catch (err) {}
-$(".submitEditUser").click(function () {
+$(".submitEditUser").click(function() {
   editUser();
 });
+// const axios = require("axios");
 
 function getAllUsers() {
-  axios.get('https://sb-oil-web-bootcamp.herokuapp.com/users')
-    .then(function (response) {
+  axios
+    // .get("https://sb-oil-web-bootcamp.herokuapp.com/users")
+    .get("http://localhost:3000/api/users")
+    .then(function(response) {
       console.log(response);
       var allData = response.data;
       n = allData.data.length;
@@ -26,7 +29,7 @@ function getAllUsers() {
         var image = member.image;
 
         eachMember = $("<div/>", {
-          id: 'member' + id,
+          id: "member" + id,
           class: "eachMember"
         });
         eachMember.appendTo($("#show"));
@@ -39,12 +42,14 @@ function getAllUsers() {
         var h1 = $("<h1></h1>").text(id + ") " + nickname);
         h1.appendTo(whiteBox);
 
-        var img = $('<img/>', {
-          src: image,
+        var img = $("<img/>", {
+          src: image
         });
         img.appendTo(whiteBox);
 
-        var h2 = $("<h2></h2>").html(name + " " + surname + "<br>(" + gender + ")");
+        var h2 = $("<h2></h2>").html(
+          name + " " + surname + "<br>(" + gender + ")"
+        );
         h2.appendTo(whiteBox);
 
         var a = $("<a/>", {
@@ -53,14 +58,14 @@ function getAllUsers() {
           href: "#deleteUser"
         });
         a.appendTo(eachMember);
-        $('.a').click(function () {
-          createEditUserForm((this.id).substring(1, ));
+        $(".a").click(function() {
+          createEditUserForm(this.id.substring(1));
           return false;
         });
 
-        var editIcon = $('<img/>', {
-          src: '../img/editIcon.svg',
-          class: 'editIcon'
+        var editIcon = $("<img/>", {
+          src: "../img/editIcon.svg",
+          class: "editIcon"
         });
         editIcon.appendTo(a);
 
@@ -70,24 +75,25 @@ function getAllUsers() {
           href: "#deleteUser"
         });
         a2.appendTo(eachMember);
-        $('.a2').click(function () {
-          deleteUser((this.id).substring(2, ));
+        $(".a2").click(function() {
+          deleteUser(this.id.substring(2));
         });
 
-        var deleteIcon = $('<img />', {
-          src: '../img/deleteIcon.svg',
+        var deleteIcon = $("<img />", {
+          src: "../img/deleteIcon.svg",
           id: "d2" + id,
-          class: 'deleteIcon'
+          class: "deleteIcon"
         });
         deleteIcon.appendTo(a2);
       }
       if (n == 0) {
-        eachMember += '<div class=divDog> <img id="dogIMG" src="img/dog.svg"> </img> </div>';
+        eachMember +=
+          '<div class=divDog> <img id="dogIMG" src="img/dog.svg"> </img> </div>';
       }
     })
-    .catch(function (error) {
+    .catch(function(error) {
       console.log(error);
-    })
+    });
 }
 
 function createUser() {
@@ -97,18 +103,30 @@ function createUser() {
   var nickname = $("[name='nickname']").val();
   var image = $("[name='image']").val();
   var gender = $("[name='gender']:checked").val();
-  var text = "name=" + name + "&surname=" + surname + "&nickname=" + nickname + "&gender=" + gender + "&image=" + image;
+  var text =
+    "name=" +
+    name +
+    "&surname=" +
+    surname +
+    "&nickname=" +
+    nickname +
+    "&gender=" +
+    gender +
+    "&image=" +
+    image;
   var xmlhttp = new XMLHttpRequest();
   var str = "";
 
-  axios.post('https://sb-oil-web-bootcamp.herokuapp.com/users', {
+  axios
+    // .post("https://sb-oil-web-bootcamp.herokuapp.com/users", {
+    .post("https://sb-oil-web-bootcamp.herokuapp.com/users", {
       name: name,
       surname: surname,
       nickname: nickname,
       gender: gender,
       image: image
     })
-    .then(function (response) {
+    .then(function(response) {
       console.log(response);
       var obj = response.data;
       var status = obj.status;
@@ -121,7 +139,7 @@ function createUser() {
         getAllUsers();
       }
     })
-    .catch(function (error) {
+    .catch(function(error) {
       console.log(error);
     });
 }
@@ -129,8 +147,9 @@ function createUser() {
 function deleteUser() {
   hideForm();
   var id = $("[name='id']").val();
-  axios.delete('https://sb-oil-web-bootcamp.herokuapp.com/users/' + id)
-    .then(function (response) {
+  axios
+    .delete("https://sb-oil-web-bootcamp.herokuapp.com/users/" + id)
+    .then(function(response) {
       console.log(response);
       var obj = response.data;
       var status = obj.status;
@@ -143,16 +162,16 @@ function deleteUser() {
         getAllUsers();
       }
     })
-    .catch(function (error) {
+    .catch(function(error) {
       console.log(error);
-    })
-
+    });
 }
 
 function deleteUser(id) {
   load();
-  axios.delete('https://sb-oil-web-bootcamp.herokuapp.com/users/' + id)
-    .then(function (response) {
+  axios
+    .delete("https://sb-oil-web-bootcamp.herokuapp.com/users/" + id)
+    .then(function(response) {
       console.log(response);
       var obj = response.data;
       var status = obj.status;
@@ -163,10 +182,9 @@ function deleteUser(id) {
         getAllUsers();
       }
     })
-    .catch(function (error) {
+    .catch(function(error) {
       console.log(error);
-    })
-
+    });
 }
 
 function createEditUserForm(id) {
@@ -183,14 +201,15 @@ function editUser() {
   var image = $("[name='image']").val();
   var gender = $("[name='gender']:checked").val();
 
-  axios.post('https://sb-oil-web-bootcamp.herokuapp.com/users/' + id, {
+  axios
+    .post("https://sb-oil-web-bootcamp.herokuapp.com/users/" + id, {
       name: name,
       surname: surname,
       nickname: nickname,
       gender: gender,
       image: image
     })
-    .then(function (response) {
+    .then(function(response) {
       console.log(response);
       var obj = response.data;
       var status = obj.status;
@@ -203,7 +222,7 @@ function editUser() {
         getAllUsers();
       }
     })
-    .catch(function (error) {
+    .catch(function(error) {
       console.log(error);
     });
 }
@@ -217,5 +236,7 @@ function unhideForm() {
 }
 
 function load() {
-  $("#show").html('<img id="loadingSign" src="../img/loading_sign.gif"> </img>');
+  $("#show").html(
+    '<img id="loadingSign" src="../img/loading_sign.gif"> </img>'
+  );
 }
