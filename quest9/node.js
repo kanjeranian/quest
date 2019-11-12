@@ -1,8 +1,9 @@
 var data = [];
+var currentID = 1;
 
-function add(id, name, surname, nickname, gender, image) {
+function add(name, surname, nickname, gender, image) {
   let a = {
-    id: id,
+    id: currentID,
     name: name,
     surname: surname,
     nickname: nickname,
@@ -10,19 +11,17 @@ function add(id, name, surname, nickname, gender, image) {
     image: image
   };
   data.push(a);
+  currentID++;
   return;
 }
 
-function edit(id, name, surname, nickname, gender, image) {
-  const index = find(id);
-  if (index == -1) return;
-
-  data[index].name = name == '' ? data[index].name : name;
-  data[index].surname = surname == '' ? data[index].surname : surname;
-  data[index].nickname = nickname == '' ? data[index].nickname : nickname;
-  data[index].gender = gender == '' ? data[index].gender : gender;
-  data[index].image = image == '' ? data[index].image : image;
-  return data[index];
+function edit(index, name, surname, nickname, gender, image) {
+  data[index].name = name == null ? data[index].name : name;
+  data[index].surname = surname == null ? data[index].surname : surname;
+  data[index].nickname = nickname == null ? data[index].nickname : nickname;
+  data[index].gender = gender == null ? data[index].gender : gender;
+  data[index].image = image == null ? data[index].image : image;
+  return;
 }
 
 function del(id) {
@@ -43,54 +42,140 @@ function find(id) {
   return -1;
 }
 
-add(1, 'Kanjana', 'Pednok', 'OIL', 'female', 'img');
-add(2, 'Kanjana', 'Pednok', 'OIL', 'female', 'img');
-add(3, 'Kanjana', 'Pednok', 'OIL', 'female', 'img');
-add(4, 'Kanjana', 'Pednok', 'OIL', 'female', 'img');
+function addError(error, message) {
+  return error == "" ? message : error + ", " + message;
+}
 
 //-----------------------------------------------
-const Koa = require('koa');
-const app = new Koa();
-const Router = require('koa-router');
-const router = new Router();
-const serve = require('koa-static');
-const path = require('path');
 
-// app.use(ctx => {
-//   ctx.body = 'Hello World';
-// });
+const koa = require("koa");
+const router = require("koa-router")();
 
-// router.get('/', ctx => {
-//   ctx.body = 'this is index page';
-// });
+var app = new koa();
 
-app.use(serve(path.join(__dirname, 'public/quest4/')));
+data = [];
 
-router.get('/echo', ctx => {
+// GET /echo : read query parameter (msg)
+router.get("/echo", function(ctx) {
   const qr = JSON.parse(JSON.stringify(ctx.request.query));
-  ctx.body = 'msg : ' + qr.msg;
+  ctx.body = qr.msg;
 });
 
-router.get('/api/users', ctx => {
-  ctx.body = data;
+// GET /api/users : return array value
+router.get("/api/users", function(ctx) {
+  ctx.body = { status: 1, data: data };
 });
 
-// router.post('/oil', aadd);
+// POST /api/users : add new user
+router.post("/api/users", function(ctx) {
+  var status = 1;
+  var error = "";
+  const qr = JSON.parse(JSON.stringify(ctx.request.query));
+  const name = qr.name;
+  const surname = qr.surname;
+  const nickname = qr.nickname;
+  const gender = qr.gender;
+  const img = qr.image;
+  if (
+    name == null ||
+    surname == null ||
+    nickname == null ||
+    gender == null ||
+    img == null
+  ) {
+    error = addError(error, "Fields required");
+  }
+  if (!(gender == "male" || gender == "female")) {
+    error = addError(error, "Invalid gender value");
+  }
+  if (error != "") {
+    status = 0;
+    ctx.body = {
+      status: status,
+      error: error
+    };
+    return;
+  }
+  add(name, surname, nickname, gender, img);
+  ctx.body = {
+    status: status,
+    data: data
+  };
+  console.log(ctx.response);
+});
 
-// function* aadd(next) {
-//   let a = {
-//     id: this.request.body.id,
-//     name: this.request.body.name,
-//     surname: this.request.body.surname,
-//     nickname: this.request.body.nickname,
-//     gender: this.request.body.gender,
-//     image: this.request.body.image
-//   };
-//   data.push(a);
-//   this.body = { message: 'New movie created.', location: '' + 5 };
-//   yield next;
-// }
+//POST /api/users/:id : edit user by id
+router.post("/api/users/:id", function(ctx) {
+  const id = ctx.params.id;
+  const index = find(id);
+  var status = 1;
+  var error = "";
+  ctx.body = "index :" + index;
+  if (index < 0) error = addError(error, "invalid id");
+  if (index >= 0) {
+    const qr = JSON.parse(JSON.stringify(ctx.request.query));
+    const name = qr.name;
+    const surname = qr.surname;
+    const nickname = qr.nickname;
+    const gender = qr.gender;
+    const image = qr.image;
 
-app.use(router.routes());
-app.use(router.allowedMethods());
+    if (!(gender == "male" || gender == "female" || gender == null)) {
+      error = addError(error, "Invalid gender value");
+    }
+    if (error != "") {
+      status = 0;
+      ctx.body = {
+        status: status,
+        error: error
+      };
+      return;
+    }
+    edit(index, name, surname, nickname, gender, image);
+    ctx.body = {
+      status: status,
+      data: data
+    };
+  }
+});
+
+//DELETE /api/users/:id : Delete user by id
+router.delete("/api/users/:id", function(ctx) {
+  const id = ctx.params.id;
+  const index = find(id);
+  var status = 1;
+  var error = "";
+  ctx.body = "index :" + index;
+  if (index < 0) error = addError(error, "invalid id");
+  if (error != "") {
+    status = 0;
+    ctx.body = {
+      status: status,
+      error: error
+    };
+    return;
+  }
+  del(id);
+  ctx.body = {
+    status: status,
+    data: data
+  };
+});
+
+router.get("/not_found", printErrorMessage);
+
+function* printErrorMessage(ctx) {
+  ctx.status = 404;
+  ctx.body = "Sorry we do not have ctx resource.";
+}
+
+function* handle404Errors() {
+  if (404 != this.status) return;
+  this.redirect("/not_found");
+}
+
+app.use(router.routes()).use(router.allowedMethods());
+app.use(handle404Errors);
+
 app.listen(3000);
+console.log("Listening on port 3000");
