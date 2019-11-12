@@ -50,6 +50,7 @@ function addError(error, message) {
 
 const koa = require("koa");
 const router = require("koa-router")();
+var bodyParser = require("koa-bodyparser"); /////
 
 var app = new koa();
 
@@ -62,6 +63,7 @@ const route = new Router();
 app.use(serve(path.join(__dirname, "public")));
 app.use(route.routes());
 app.use(route.allowedMethods());
+
 //------------------------------------------------
 
 // GET /echo : read query parameter (msg)
@@ -73,25 +75,23 @@ router.get("/echo", function(ctx) {
 // GET /api/users : return array value
 router.get("/api/users", function(ctx) {
   ctx.body = { status: 1, data: data };
-  console.log(ctx.response);
 });
 
 // POST /api/users : add new user
 router.post("/api/users", function(ctx) {
   var status = 1;
   var error = "";
-  const qr = JSON.parse(JSON.stringify(ctx.request.query));
-  const name = qr.name;
-  const surname = qr.surname;
-  const nickname = qr.nickname;
-  const gender = qr.gender;
-  const img = qr.image;
+  const name = ctx.request.body.name;
+  const surname = ctx.request.body.surname;
+  const nickname = ctx.request.body.nickname;
+  const gender = ctx.request.body.gender;
+  const image = ctx.request.body.image;
   if (
-    name == null ||
-    surname == null ||
-    nickname == null ||
+    name == "" ||
+    surname == "" ||
+    nickname == "" ||
     gender == null ||
-    img == null
+    image == ""
   ) {
     error = addError(error, "Fields required");
   }
@@ -106,12 +106,11 @@ router.post("/api/users", function(ctx) {
     };
     return;
   }
-  const index = add(name, surname, nickname, gender, img);
+  const index = add(name, surname, nickname, gender, image);
   ctx.body = {
     status: status,
     data: data[index]
   };
-  console.log(data[index]);
 });
 
 //POST /api/users/:id : edit user by id
@@ -123,19 +122,29 @@ router.post("/api/users/:id", function(ctx) {
   ctx.body = "index :" + index;
   if (index < 0) error = addError(error, "invalid id");
   if (index >= 0) {
-    const qr = JSON.parse(JSON.stringify(ctx.request.query));
-    const name = qr.name;
-    const surname = qr.surname;
-    const nickname = qr.nickname;
-    const gender = qr.gender;
-    const image = qr.image;
+    const name =
+      ctx.request.body.name == "" ? data[index].name : ctx.request.body.name;
+    const surname =
+      ctx.request.body.surname == ""
+        ? data[index].surname
+        : ctx.request.body.surname;
+    const nickname =
+      ctx.request.body.nickname == ""
+        ? data[index].nickname
+        : ctx.request.body.nickname;
+    const gender =
+      ctx.request.body.gender == null
+        ? data[index].gender
+        : ctx.request.body.gender;
+    const image =
+      ctx.request.body.image == "" ? data[index].image : ctx.request.body.image;
 
     if (!(gender == "male" || gender == "female" || gender == null)) {
       error = addError(error, "Invalid gender value");
     }
     if (error != "") {
       status = 0;
-      ctx.body = {
+      ctx.request.body = {
         status: status,
         error: error
       };
@@ -146,7 +155,7 @@ router.post("/api/users/:id", function(ctx) {
       status: status,
       data: data[index]
     };
-    console.log(ctx.response);
+    console.log(ctx.request.response);
   }
 });
 
@@ -156,7 +165,7 @@ router.delete("/api/users/:id", function(ctx) {
   const index = find(id);
   var status = 1;
   var error = "";
-  ctx.body = "index :" + index;
+  ctx.request.body = "index :" + index;
   if (index < 0) error = addError(error, "invalid id");
   if (error != "") {
     status = 0;
@@ -170,14 +179,13 @@ router.delete("/api/users/:id", function(ctx) {
   ctx.body = {
     status: status
   };
-  console.log(ctx);
 });
 
 router.get("/not_found", printErrorMessage);
 
 function* printErrorMessage(ctx) {
-  ctx.status = 404;
-  ctx.body = "Sorry we do not have ctx resource.";
+  ctx.request.status = 404;
+  ctx.request.body = "Sorry we do not have ctx resource.";
 }
 
 function* handle404Errors() {
@@ -185,21 +193,9 @@ function* handle404Errors() {
   this.redirect("/not_found");
 }
 
+app.use(bodyParser());
 app.use(router.routes()).use(router.allowedMethods());
 app.use(handle404Errors);
 
 app.listen(3000);
 console.log("Listening on port 3000");
-
-//////////////////////////////////////////////////
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
-
-//////////////////////////////////////////////////

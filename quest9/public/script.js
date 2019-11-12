@@ -7,7 +7,6 @@ try {
 $(".submitEditUser").click(function() {
   editUser();
 });
-// const axios = require("axios");
 
 function getAllUsers() {
   axios
@@ -103,23 +102,10 @@ function createUser() {
   var nickname = $("[name='nickname']").val();
   var image = $("[name='image']").val();
   var gender = $("[name='gender']:checked").val();
-  var text =
-    "name=" +
-    name +
-    "&surname=" +
-    surname +
-    "&nickname=" +
-    nickname +
-    "&gender=" +
-    gender +
-    "&image=" +
-    image;
-  var xmlhttp = new XMLHttpRequest();
-  var str = "";
 
   axios
     // .post("https://sb-oil-web-bootcamp.herokuapp.com/users", {
-    .post("https://sb-oil-web-bootcamp.herokuapp.com/users", {
+    .post("http://localhost:3000/api/users", {
       name: name,
       surname: surname,
       nickname: nickname,
@@ -144,33 +130,11 @@ function createUser() {
     });
 }
 
-function deleteUser() {
-  hideForm();
-  var id = $("[name='id']").val();
-  axios
-    .delete("https://sb-oil-web-bootcamp.herokuapp.com/users/" + id)
-    .then(function(response) {
-      console.log(response);
-      var obj = response.data;
-      var status = obj.status;
-      if (status == 0) {
-        errMessage = obj.error;
-        $("userForm").trigger("reset");
-        alert(errMessage);
-        unhideForm();
-      } else {
-        getAllUsers();
-      }
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
-}
-
 function deleteUser(id) {
   load();
   axios
-    .delete("https://sb-oil-web-bootcamp.herokuapp.com/users/" + id)
+    // .delete("https://sb-oil-web-bootcamp.herokuapp.com/users/" + id)
+    .delete("http://localhost:3000/api/users/" + id)
     .then(function(response) {
       console.log(response);
       var obj = response.data;
@@ -202,7 +166,8 @@ function editUser() {
   var gender = $("[name='gender']:checked").val();
 
   axios
-    .post("https://sb-oil-web-bootcamp.herokuapp.com/users/" + id, {
+    // .post("https://sb-oil-web-bootcamp.herokuapp.com/users/" + id, {
+    .post("http://localhost:3000/api/users/" + id, {
       name: name,
       surname: surname,
       nickname: nickname,
