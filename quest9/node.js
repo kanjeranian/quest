@@ -99,7 +99,7 @@ router.post("/api/users", function(ctx) {
   add(name, surname, nickname, gender, img);
   ctx.body = {
     status: status,
-    data: data
+    data: data[index]
   };
   console.log(ctx.response);
 });
@@ -134,7 +134,7 @@ router.post("/api/users/:id", function(ctx) {
     edit(index, name, surname, nickname, gender, image);
     ctx.body = {
       status: status,
-      data: data
+      data: data[index]
     };
   }
 });
@@ -157,8 +157,7 @@ router.delete("/api/users/:id", function(ctx) {
   }
   del(id);
   ctx.body = {
-    status: status,
-    data: data
+    status: status
   };
 });
 
