@@ -26,3 +26,51 @@
 // }
 // แต่ละฟิลด์จะใส่หรือไม่ใส่ก็ได้ และจะแก้เฉพาะฟิลด์ที่ใส่
 // deleteUser(id) ลบผู้ใช้ที่มี id แล้วไม่คืนค่าใดๆ
+
+var data = [];
+var currentID = 1;
+
+function add(name, surname, nickname, gender, image) {
+  let a = {
+    id: currentID,
+    name: name,
+    surname: surname,
+    nickname: nickname,
+    gender: gender,
+    image: image
+  };
+  data.push(a);
+  currentID++;
+  return find(a.id);
+}
+
+function edit(index, name, surname, nickname, gender, image) {
+  data[index].name = name == null ? data[index].name : name;
+  data[index].surname = surname == null ? data[index].surname : surname;
+  data[index].nickname = nickname == null ? data[index].nickname : nickname;
+  data[index].gender = gender == null ? data[index].gender : gender;
+  data[index].image = image == null ? data[index].image : image;
+  return;
+}
+
+function del(id) {
+  const index = find(id);
+  if (index == -1) return;
+
+  const deleteData = del[index];
+  data.splice(index, 1);
+  return deleteData;
+}
+
+function find(id) {
+  for (index = 0; index < data.length; index++) {
+    if (data[index].id == id) {
+      return index;
+    }
+  }
+  return -1;
+}
+
+function addError(error, message) {
+  return error == '' ? message : error + ', ' + message;
+}
