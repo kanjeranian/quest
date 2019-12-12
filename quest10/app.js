@@ -4,10 +4,11 @@
 // และเริ่มการทำงาน web server ด้วยคำสั่ง listen()
 // ไม่มีการประกาศ path ใหม่ของ router / ไม่มี logic ในการจัดการข้อมูล
 
-const koa = require('koa');
-const router = require('koa-router')();
-const bodyParser = require('koa-bodyparser'); /////
-const app = new koa();
+import Koa from 'koa';
+import router from './router';
+
+const app = new Koa();
+const bodyParser = require('koa-bodyparser');
 const serve = require('koa-static');
 const path = require('path');
 

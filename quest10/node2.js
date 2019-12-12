@@ -1,20 +1,75 @@
-// เก็บเฉพาะข้อมูลของ router ว่าถ้าเรียก path นี้จะให้ทำอะไรต่อ
-// มีการเรียกขอหรือแก้ไขข้อมูลผ่านไฟล์ user-service.js
-// ไฟล์นี้จะต้องไม่มี logic ในการจัดการข้อมูลใดๆทั้งสิ้น
-// จะต้องเรียกผ่าน model เท่านั้น
-//appRoutes.js
+//------------------app.js-----------------------------
 
-import Router from 'koa-router';
-import {
-  getUsers,
-  createUser,
-  editUser,
-  deleteUser,
-  find,
-  addError
-} from './user-service';
-const router = Router();
+const koa = require('koa');
+const router = require('koa-router')();
+const bodyParser = require('koa-bodyparser'); /////
+const app = new koa();
+const serve = require('koa-static');
+const path = require('path');
 
+app.use(serve(path.join(__dirname, 'public')));
+app.use(bodyParser());
+app.use(router.routes()).use(router.allowedMethods());
+app.use(handle404Errors);
+
+app.listen(3000);
+console.log('Listening on port 3000');
+
+//------------------------------------------------
+
+//---------------logic----------------------------
+
+var data = [];
+var currentID = 1;
+
+function add(name, surname, nickname, gender, image) {
+  let a = {
+    id: currentID,
+    name: name,
+    surname: surname,
+    nickname: nickname,
+    gender: gender,
+    image: image
+  };
+  data.push(a);
+  currentID++;
+  return find(a.id);
+}
+
+function edit(index, name, surname, nickname, gender, image) {
+  data[index].name = name == null ? data[index].name : name;
+  data[index].surname = surname == null ? data[index].surname : surname;
+  data[index].nickname = nickname == null ? data[index].nickname : nickname;
+  data[index].gender = gender == null ? data[index].gender : gender;
+  data[index].image = image == null ? data[index].image : image;
+  return;
+}
+
+function del(id) {
+  const index = find(id);
+  if (index == -1) return;
+
+  const deleteData = del[index];
+  data.splice(index, 1);
+  return deleteData;
+}
+
+function find(id) {
+  for (index = 0; index < data.length; index++) {
+    if (data[index].id == id) {
+      return index;
+    }
+  }
+  return -1;
+}
+
+function addError(error, message) {
+  return error == '' ? message : error + ', ' + message;
+}
+
+//----------------------------------------------------
+
+//--------------------router---------------------------
 // GET /echo : read query parameter (msg)
 router.get('/echo', function(ctx) {
   const qr = JSON.parse(JSON.stringify(ctx.request.query));
@@ -23,7 +78,6 @@ router.get('/echo', function(ctx) {
 
 // GET /api/users : return array value
 router.get('/api/users', function(ctx) {
-  const data = getUsers();
   ctx.body = { status: 1, data: data };
 });
 
@@ -56,17 +110,10 @@ router.post('/api/users', function(ctx) {
     };
     return;
   }
-  const user = {
-    name: name,
-    surname: surname,
-    nickname: nickname,
-    gender: gender,
-    image: image
-  };
-  const newUser = createUser(user);
+  const index = add(name, surname, nickname, gender, image);
   ctx.body = {
     status: status,
-    data: newUser
+    data: data[index]
   };
 });
 
@@ -107,14 +154,7 @@ router.post('/api/users/:id', function(ctx) {
       };
       return;
     }
-    const change = {
-      name: name,
-      surname: surname,
-      nickname: nickname,
-      gender: gender,
-      image: image
-    };
-    editUser(id, change);
+    edit(index, name, surname, nickname, gender, image);
     ctx.body = {
       status: status,
       data: data[index]
@@ -156,5 +196,3 @@ function* handle404Errors() {
   if (404 != this.status) return;
   this.redirect('/not_found');
 }
-
-export default router;
