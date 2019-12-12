@@ -1,9 +1,3 @@
-// เก็บเฉพาะข้อมูลของ router ว่าถ้าเรียก path นี้จะให้ทำอะไรต่อ
-// มีการเรียกขอหรือแก้ไขข้อมูลผ่านไฟล์ user-service.js
-// ไฟล์นี้จะต้องไม่มี logic ในการจัดการข้อมูลใดๆทั้งสิ้น
-// จะต้องเรียกผ่าน model เท่านั้น
-//appRoutes.js
-
 import Router from 'koa-router';
 import {
   getUsers,
@@ -74,6 +68,7 @@ router.post('/api/users', function(ctx) {
 router.post('/api/users/:id', function(ctx) {
   const id = ctx.params.id;
   const index = find(id);
+  const data = getUsers();
   var status = 1;
   var error = '';
   ctx.body = 'index :' + index;
@@ -139,22 +134,17 @@ router.delete('/api/users/:id', function(ctx) {
     };
     return;
   }
-  del(id);
+  deleteUser(id);
   ctx.body = {
     status: status
   };
 });
 
-router.get('/not_found', printErrorMessage);
+// router.get('/not_found', printErrorMessage);
 
-function* printErrorMessage(ctx) {
-  ctx.request.status = 404;
-  ctx.request.body = 'Sorry we do not have ctx resource.';
-}
-
-function* handle404Errors() {
-  if (404 != this.status) return;
-  this.redirect('/not_found');
-}
+// function* printErrorMessage(ctx) {
+//   ctx.request.status = 404;
+//   ctx.request.body = 'Sorry we do not have ctx resource.';
+// }
 
 export default router;
