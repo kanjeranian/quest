@@ -1,3 +1,5 @@
+//---------------- File management ---------------
+
 const fs = require('fs');
 var rawData = fs.readFileSync('data.json');
 var AllData = JSON.parse(rawData);
@@ -10,14 +12,14 @@ function writeFile() {
   fs.writeFileSync('data.json', jsonData);
 }
 
+//------------------ User management--------------
+
 export function getUsers() {
   console.log(AllData);
   return data;
 }
 
 export function createUser(user) {
-  var error = '';
-
   const newUser = {
     id: nextID,
     name: user.name,
@@ -34,31 +36,25 @@ export function createUser(user) {
     newUser.gender == null ||
     newUser.image == ''
   ) {
-    error = addError(error, 'Fields required');
+    return {
+      error: 'Fields required'
+    };
   }
 
-  if (error != '') {
-    return {
-      error: error
-    };
-  } else {
-    data.push(newUser);
-    nextID++;
-    writeFile();
-    return {
-      data: newUser
-    };
-  }
+  data.push(newUser);
+  nextID++;
+  writeFile();
+  return {
+    data: newUser
+  };
 }
 
 export function editUser(id, changes) {
-  var error = '';
   const index = find(id);
 
   if (index < 0) {
-    error = addError(error, 'invalid id');
     return {
-      error: error
+      error: 'invalid id'
     };
   }
 
@@ -93,8 +89,4 @@ export function find(id) {
     }
   }
   return -1;
-}
-
-export function addError(error, message) {
-  return error == '' ? message : error + ', ' + message;
 }
