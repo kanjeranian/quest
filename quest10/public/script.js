@@ -131,7 +131,6 @@ function createUser() {
 function deleteUser(id) {
   load();
   axios
-    // .delete("https://sb-oil-web-bootcamp.herokuapp.com/users/" + id)
     .delete('http://localhost:3000/api/users/' + id)
     .then(function(response) {
       console.log(response);
@@ -139,7 +138,6 @@ function deleteUser(id) {
       var status = obj.status;
       if (status == 0) {
         errMessage = obj.error;
-        //alert(errMessage);
       } else {
         getAllUsers();
       }
@@ -164,7 +162,6 @@ function editUser() {
   var gender = $("[name='gender']:checked").val();
 
   axios
-    // .post("https://sb-oil-web-bootcamp.herokuapp.com/users/" + id, {
     .post('http://localhost:3000/api/users/' + id, {
       name: name,
       surname: surname,

@@ -1,7 +1,17 @@
-var data = [];
-var currentID = 1;
+const fs = require('fs');
+var rawData = fs.readFileSync('data.json');
+var AllData = JSON.parse(rawData);
+var data = AllData.user.data;
+var nextID = AllData.user.nextID;
+
+function writeFile() {
+  AllData.user.nextID = nextID;
+  const jsonData = JSON.stringify(AllData);
+  fs.writeFileSync('data.json', jsonData);
+}
 
 export function getUsers() {
+  console.log(AllData);
   return data;
 }
 
@@ -9,7 +19,7 @@ export function createUser(user) {
   var error = '';
 
   const newUser = {
-    id: currentID,
+    id: nextID,
     name: user.name,
     surname: user.surname,
     nickname: user.nickname,
@@ -33,7 +43,8 @@ export function createUser(user) {
     };
   } else {
     data.push(newUser);
-    currentID++;
+    nextID++;
+    writeFile();
     return {
       data: newUser
     };
@@ -60,6 +71,8 @@ export function editUser(id, changes) {
     changes.gender == null ? data[index].gender : changes.gender;
   data[index].image = changes.image == '' ? data[index].image : changes.image;
 
+  writeFile();
+
   return {
     data: data[index]
   };
@@ -68,6 +81,7 @@ export function editUser(id, changes) {
 export function deleteUser(id) {
   const index = find(id);
   data.splice(index, 1);
+  writeFile();
   return;
 }
 //----------------------------------others--------------------------------------------
